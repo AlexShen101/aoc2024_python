@@ -1,0 +1,39 @@
+from collections import defaultdict
+
+# given 2 arrays of numbers, sort them, compute the absolute differences, then return the sum
+def part1(nums1, nums2):
+    nums1.sort()
+    nums2.sort()
+
+    nums3 = [0] * len(nums1)
+    for i in range(len(nums1)):
+        nums3[i] = abs(nums1[i] - nums2[i])
+
+    return sum(nums3)
+
+def part2(nums1, nums2):
+    # how often does each number from left list appear in right list
+    n2Map = defaultdict(int)
+    for n in nums2:
+        n2Map[n] += 1
+    
+    score = 0
+    for n in nums1:
+        score += n * n2Map[n]
+    return score
+
+
+with open('t1.input', 'r') as file:
+    lines = file.readlines()
+    
+    nums1 = []
+    nums2 = []
+
+    for line in lines:
+        n1, n2 = map(int, line.split())
+        nums1.append(n1)
+        nums2.append(n2)
+
+    print(part2(nums1, nums2))
+
+
